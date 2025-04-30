@@ -1,0 +1,6 @@
+Agenda:
+1. Solidity
+2. remix ide
+3. 5 programs
+https://solidity-by-example.org/
+

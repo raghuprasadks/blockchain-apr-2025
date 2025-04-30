@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object</title>
+</head>
+<body>
+    <h1>Object</h1>
+    <script>
+        // Object
+        let person = {
+            name: "John Doe",
+            age: 30,
+            isStudent: true,
+            greet: function() {
+                console.log("Hello, my name is " + this.name);
+            }
+        };
+        console.log(person); // Output: {name: "John Doe", age: 30, isStudent: true, greet: ƒ}
+        console.log(person.name); // Output: John Doe
+        console.log(person.age); // Output: 30
+        person.greet(); // Output: Hello, my name is John Doe
+    </script>
+    
+</body>
+</html>

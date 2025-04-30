@@ -1,0 +1,25 @@
+1. Introduction to Block Chain
+2. Applications of block chain
+3. Architecture of block chain
+
+Getting started with block chain programming language
+1. Solidity
+2. remix ide
+search remix ide in the net
+3.https://remix.ethereum.org/
+4. Move cursor over contracts
+5. create new file
+1-BC-HelloWorld.sol
+// SPDX-License-Identifier: MIT
+// compiler version must be greater than or equal to 0.8.26 and less than 0.9.0
+pragma solidity ^0.8.26;
+
+contract HelloWorld {
+    string public greet = "Hello World!";
+}
+
+compile - control s
+deploy
+deploy
+https://solidity-by-example.org/
+

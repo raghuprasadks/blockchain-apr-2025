@@ -1,0 +1,34 @@
+Agenda:
+1. Recap - solidity-remix ide
+2. Install node.js
+Java script serverside runtime environment
+web programming - html/css/java script/ajax
+3. Basic java script programs
+using node.js in visual studio code
+4. Solidity compiler - solc
+5. Truffle/hardhat
+6. Ganache - local blockchain network
+
+Steps:
+1. Install visual studio code
+download visual studio code community edition
+https://code.visualstudio.com/download
+2. in windows search type visual 
+3. create folder web inside programs folder
+programs/web
+4. open folder from visual studio code
+create 1-js-gettingstarted.html
+
+5. Download node js
+download as windows installer
+6. create nodedemo.js
+console.log("node demo")
+7. to the run the program
+node nodedemo.js
+8. to install any library in node
+npm <library name>
+
+
+www.kaushalya.tech
+
+
