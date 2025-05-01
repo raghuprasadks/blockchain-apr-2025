@@ -104,6 +104,57 @@ chrome://extensions/
 search for meta
 find metamask and install
 
+www.kaushalya.tech
+git
+repositories
+blockchain-apr-2025
+
+2nd Session
+https://archive.trufflesuite.com
+
+https://archive.trufflesuite.com/boxes/
+
+https://archive.trufflesuite.com/boxes/metacoin/
+
+steps:
+1. Create truffletutorial folder
+2. cd truffletutorial folder
+3. truffle unbox metacoin
+4. truffle compile
+uncomment following in truffle-config.js
+development: {
+     host: "127.0.0.1",     // Localhost (default: none)
+     port: 7545,            // Standard Ethereum port (default: none)
+     network_id: "*",       // Any network (default: none)
+    }
+
+5. truffle migrate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
