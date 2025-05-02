@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetaCoin Interface</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <h1>MetaCoin Dashboard</h1>
+        <div>
+            <h2>Your Balance</h2>
+            <p id="balance">Loading...</p>
+        </div>
+        <div>
+            <h2>Send MetaCoin</h2>
+            <input type="text" id="receiver" placeholder="Receiver Address">
+            <input type="number" id="amount" placeholder="Amount">
+            <button id="sendButton">Send</button>
+        </div>
+        <div id="transactionStatus"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.6.1/web3.min.js"></script>
+ <!--   <script src="../src/index.js"></script>-->
+
+ <script>
+    // Connect to MetaMask
+    if (typeof window.ethereum !== 'undefined') {
+        const web3 = new Web3(window.ethereum);
+        window.ethereum.request({ method: 'eth_requestAccounts' })
+            .then(accounts => {
+                const account = accounts[0];
+                document.getElementById('balance').innerText = `Loading balance for ${account}...`;
+                return web3.eth.getBalance(account);
+            })
+            .then(balance => {
+                document.getElementById('balance').innerText = `Balance: ${web3.utils.fromWei(balance, 'ether')} MetaCoin`;
+            })
+            .catch(error => {
+                console.error("Error fetching balance:", error);
+            });
+
+        // Send MetaCoin
+        document.getElementById('sendButton').addEventListener('click', () => {
+            const receiver = document.getElementById('receiver').value;
+            const amount = document.getElementById('amount').value;
+
+            if (!receiver || !amount) {
+                alert("Please enter both receiver address and amount.");
+                return;
+            }
+
+            web3.eth.sendTransaction({
+                from: ethereum.selectedAddress,
+                to: receiver,
+                value: web3.utils.toWei(amount, 'ether')
+            })
+            .then(receipt => {
+                document.getElementById('transactionStatus').innerText = `Transaction successful! Hash: ${receipt.transactionHash}`;
+            })
+            .catch(error => {
+                console.error("Error sending transaction:", error);
+                document.getElementById('transactionStatus').innerText = "Transaction failed.";
+            });
+        });
+    } else {
+        alert("Please install MetaMask to use this feature.");
+    }     
+ </script>
+</body>
+</html>

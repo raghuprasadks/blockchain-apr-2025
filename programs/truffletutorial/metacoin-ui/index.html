@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetaCoin Interface</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <h1>MetaCoin Dashboard</h1>
+        <div>
+            <h2>Your Balance</h2>
+            <p id="balance">Loading...</p>
+        </div>
+        <div>
+            <h2>Send MetaCoin</h2>
+            <input type="text" id="receiver" placeholder="Receiver Address">
+            <input type="number" id="amount" placeholder="Amount">
+            <button id="sendButton">Send</button>
+        </div>
+        <div id="transactionStatus"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.6.1/web3.min.js"></script>
+    <script>
+        // Initialize Web3
+        let web3;
+
+        if (window.ethereum) {
+            web3 = new Web3(window.ethereum);
+            try {
+                window.ethereum.enable(); // Request account access
+            } catch (error) {
+                console.error("User denied account access");
+            }
+        } else if (window.web3) {
+            web3 = new Web3(window.web3.currentProvider);
+        } else {
+            const provider = new Web3.providers.HttpProvider('http://127.0.0.1:7545'); // Ganache default
+            web3 = new Web3(provider);
+        }
+
+        // MetaCoin Contract Integration
+        const metaCoinABI = [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "_from",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_value",
+          "type": "uint256"
+        }
+      ],
+      "name": "Transfer",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "receiver",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "sendCoin",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "sufficient",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "addr",
+          "type": "address"
+        }
+      ],
+      "name": "getBalanceInEth",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "addr",
+          "type": "address"
+        }
+      ],
+      "name": "getBalance",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    }
+  ]
+        const metaCoinAddress = '0x677CabF9356D7c1Cc412E9d33D585Fe6B036Faa6'; // Replace with your deployed MetaCoin contract address
+        const metaCoinContract = new web3.eth.Contract(metaCoinABI, metaCoinAddress);
+
+        // Fetch and display balance
+        web3.eth.getAccounts()
+            .then(accounts => {
+                const account = accounts[0];
+                console.log("Account:", account);
+                document.getElementById('balance').innerText = `Loading balance for ${account}...`;
+                return metaCoinContract.methods.getBalance(account).call();
+            })
+            .then(balance => {
+                document.getElementById('balance').innerText = `Balance: ${balance} MetaCoin`;
+            })
+            .catch(error => {
+                console.error("Error fetching balance:", error);
+            });
+
+        // Send MetaCoin
+        document.getElementById('sendButton').addEventListener('click', async () => {
+            const receiver = document.getElementById('receiver').value;
+            const amount = document.getElementById('amount').value;
+
+            if (!receiver || !amount) {
+                alert("Please enter both receiver address and amount.");
+                return;
+            }
+
+            try {
+                const accounts = await web3.eth.getAccounts();
+                const sender = accounts[0];
+
+                await metaCoinContract.methods.sendCoin(receiver, amount).send({ from: sender });
+                document.getElementById('transactionStatus').innerText = "Transaction successful!";
+            } catch (error) {
+                console.error("Error sending MetaCoin:", error);
+                document.getElementById('transactionStatus').innerText = "Transaction failed.";
+            }
+        });
+    </script>
+</body>
+</html>
