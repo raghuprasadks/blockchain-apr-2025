@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Voting DApp</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+</head>
+<body>
+    <h1>Vote for a Candidate</h1>
+    <input type="text" id="candidate" placeholder="Enter candidate name">
+    <button onclick="vote()">Vote</button>
+    <p id="status"></p>
+
+    <script>
+        const contractAddress = "0xbbBA501f01fB0D4f8334082182916d1Ee3F51F7F";
+        const abi = [
+    {
+      "inputs": [
+        {
+          "internalType": "string[]",
+          "name": "_candidates",
+          "type": "string[]"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "candidates",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "name": "votesReceived",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "candidate",
+          "type": "string"
+        }
+      ],
+      "name": "voteForCandidate",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "candidate",
+          "type": "string"
+        }
+      ],
+      "name": "totalVotesFor",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    }
+  ];
+
+        let web3 = new Web3(window.ethereum);
+        let votingContract;
+
+        window.addEventListener('load', async () => {
+            await ethereum.request({ method: 'eth_requestAccounts' });
+            votingContract = new web3.eth.Contract(abi, contractAddress);
+        });
+
+        async function vote() {
+            const candidate = document.getElementById("candidate").value;
+            const accounts = await web3.eth.getAccounts();
+
+            try {
+                await votingContract.methods.voteForCandidate(candidate).send({ from: accounts[0] });
+                document.getElementById("status").innerText = `Voted for ${candidate}`;
+            } catch (err) {
+                document.getElementById("status").innerText = `Error: ${err.message}`;
+            }
+        }
+    </script>
+</body>
+</html>

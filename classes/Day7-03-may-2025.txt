@@ -1,0 +1,294 @@
+Agenda:
+1. Development of DApps - Decentralized App's
+
+End to end programming
+
+DApps (short for Decentralized Applications) are software applications that run on a blockchain or peer-to-peer (P2P) network of computers instead of a single centralized server.
+
+Common Use Cases:
+Finance (DeFi apps like Uniswap, Aave)
+Gaming (Play-to-Earn games like Axie Infinity)
+NFTs (Platforms like OpenSea)
+Social Media (Decentralized platforms like Lens Protocol)
+
+NFT stands for Non-Fungible Token. It is a unique digital asset stored on a blockchain, used to represent ownership or proof of authenticity of a one-of-a-kind item — digital or physical.
+
+Simple Maths Calculator
+
+Enter a number <text box>
+Enter an operator <text box> +,-,*,/
+Enter another number <text box>
+<Calculate>
+10 + 20 = 30
+
+arrow functions
+
+Steps:
+1. under web folder
+create 9-SimpleMathCalculator.html
+
+//regular function
+function greet(){
+console.log("welcome to blockchain")
+}
+greet()
+
+//arrow function
+greeting = ()=>{
+console.log("welcome to block chain using arrow function")
+}
+greeting()
+
+function add(num1,num2){
+result =num1+num2
+console.log(result)
+}
+
+add(10,30)
+
+addarrow=(num1,num2)=>{
+result =num1+num2
+console.log(result)
+}
+addarrow(20,30)
+
+function multiply(n1,n2){
+return n1*n2;
+}
+result =multiply(10,20)
+console.log(result)
+
+multiplyarrow = (n1,n2)=>{
+return n1*n2;
+}
+res=multiplyarrow(10,20)
+console.log("result is ",res)
+
+
+subtractarrow = (n1,n2)=>n1-n2
+res=subtractarrow(20,10)
+console.log(res)
+
+Development of Voting App -DApps
+
+Steps:
+1. create votingapp folder
+2. cd votingapp
+3. cmd
+4. code .
+5. open terminal inside visual studio code
+or issue following commands in cmd only
+6. truffle init
+it creates folders contracts,migrations,test and truffle-config.js
+
+7. Inside contracts folder creating voting.sol
+
+// SPDX-License-Identifier: MIT
+pragma solidity=0.8.13;
+
+contract Voting {
+    mapping(string => uint256) public votesReceived;
+    string[] public candidates;
+
+    constructor(string[] memory _candidates) {
+        candidates = _candidates;
+    }
+
+    function voteForCandidate(string memory candidate) public {
+        require(validCandidate(candidate), "Candidate not valid.");
+        votesReceived[candidate] += 1;
+    }
+
+    function totalVotesFor(string memory candidate) public view returns (uint256) {
+        require(validCandidate(candidate), "Candidate not valid.");
+        return votesReceived[candidate];
+    }
+
+    function validCandidate(string memory candidate) private view returns (bool) {
+        for (uint256 i = 0; i < candidates.length; i++) {
+            if (keccak256(bytes(candidates[i])) == keccak256(bytes(candidate))) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+
+8. Under migration folder create 
+1-voting-migtration.js
+
+const voting = artifacts.require("Voting");
+
+module.exports = function (deployer) {
+  deployer.deploy(voting,["raghu","siva","karthik"]);
+};
+
+
+9- in truffle-config.js
+
+uncomment the deployment section
+
+development: {
+     host: "127.0.0.1",     // Localhost (default: none)
+     port: 7545,            // Standard Ethereum port (default: none)
+     network_id: "*",       // Any network (default: none)
+    },
+
+compiler
+
+compilers: {
+    solc: {
+      version: "0.8.13",      // Fetch exact version from solc-bin (default: truffle's version)
+  
+
+10. truffle compile
+
+It creates a build folder and creates voting.json file
+refer to abi
+
+11. truffle migrate
+
+copy contract address
+
+0xbbBA501f01fB0D4f8334082182916d1Ee3F51F7F
+
+12. create web folder under votingapp
+create index.html
+copy paste following code
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Voting DApp</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+</head>
+<body>
+    <h1>Vote for a Candidate</h1>
+    <input type="text" id="candidate" placeholder="Enter candidate name">
+    <button onclick="vote()">Vote</button>
+    <p id="status"></p>
+
+    <script>
+        const contractAddress = "0x1fe274f4c7bfCE65B3264200E66677255282c42b";
+        const abi = [
+    {
+      "inputs": [
+        {
+          "internalType": "string[]",
+          "name": "_candidates",
+          "type": "string[]"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "candidates",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "name": "votesReceived",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "candidate",
+          "type": "string"
+        }
+      ],
+      "name": "voteForCandidate",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "candidate",
+          "type": "string"
+        }
+      ],
+      "name": "totalVotesFor",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    }
+  ];
+
+        let web3 = new Web3(window.ethereum);
+        let votingContract;
+
+        window.addEventListener('load', async () => {
+            await ethereum.request({ method: 'eth_requestAccounts' });
+            votingContract = new web3.eth.Contract(abi, contractAddress);
+        });
+
+        async function vote() {
+            const candidate = document.getElementById("candidate").value;
+            const accounts = await web3.eth.getAccounts();
+
+            try {
+                await votingContract.methods.voteForCandidate(candidate).send({ from: accounts[0] });
+                document.getElementById("status").innerText = `Voted for ${candidate}`;
+            } catch (err) {
+                document.getElementById("status").innerText = `Error: ${err.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+13. replace abi and contractAddress
+14. run live server
+
+
+

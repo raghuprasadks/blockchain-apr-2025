@@ -18,12 +18,6 @@
 		<div>
 			<button id="requestAccounts">Request MetaMask Accounts</button>
 		</div>
-
-		<div>
-			<input id="messageToSign" placeholder="Message to Sign" disabled />
-			<button id="signMessage" disabled>Sign Message</button>
-			<div id="signingResult"></div>
-		</div>
 		<script type="module">
 			// ensure that there is an injected the Ethereum provider
 			if (window.ethereum) {
@@ -68,27 +62,6 @@
 					document.getElementById(
 						'connectedAccount',
 					).innerText = `Account: ${accounts[0]}`;
-
-					// enable signing input
-					const messageToSign = document.getElementById('messageToSign');
-					const sign = document.getElementById('signMessage');
-					messageToSign.disabled = false;
-					sign.disabled = false;
-
-					// click event for "Sign Message" button
-					sign.addEventListener('click', async () => {
-						// sign message with first MetaMask account
-						const signature = await web3.eth.personal.sign(
-							messageToSign.value,
-							accounts[0],
-							'',
-						);
-
-						// update placeholder with signed message
-						document.getElementById(
-							'signingResult',
-						).innerText = `Signed Message: ${signature}`;
-					});
 				});
 			} else {
 				// no Ethereum provider - instruct user to install MetaMask
