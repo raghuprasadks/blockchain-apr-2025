@@ -1,0 +1,73 @@
+Agenda:
+1. Recap of DApps
+Decentralized application
+End to end block chain application development
+truffle framework
+pre-requisites 
+node.js
+https://www.npmjs.com/
+npm
+npm i -g truffle
+
+Commands:
+truffle init
+
+
+2. Develop DApps to tranferapp
+
+transfer crypto currency from one account to another
+account
+
+steps
+1. create tranferapp folder
+2. open tranferapp in command prompt
+3. truffle init
+this will create contracts,migration,test folders and 
+truffle-config.js
+file
+4. create EtherTransfer.sol under contracts folder
+5. uncomment the development section under deployment
+in truffle-config.js
+change the port to 7545
+change the solidity compiler version 0.8.13
+6. create 1-migration-tranfer.js
+7. in command prompt type
+truffle compile
+
+creates a new folder build
+and a file EtherTransfer.json
+
+ABI stands for Application Binary Interface.
+
+8. open ganache
+click new workspace
+name : transferapp
+add project : select truffle-config.json 
+present insider your project i,e tranferapp
+9. truffle migrate
+
+copy the contract address which is displayed on
+the console
+
+0x436679bFEC28c43ABfa83E4aa34d1e4d02111807
+
+
+10. open metamask
+add new account
+import private key
+and select ganache as the network
+
+11. create web folder under transferapp
+add index.html
+run using liveserver
+
+
+
+
+
+
+
+
+
+
+

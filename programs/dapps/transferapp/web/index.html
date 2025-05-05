@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ether Transfer</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3/dist/web3.min.js"></script>
+</head>
+<body>
+    <h1>Ether Transfer</h1>
+    <div>
+        <label for="recipient">Recipient Address:</label>
+        <input type="text" id="recipient" placeholder="Enter recipient address">
+    </div>
+    <div>
+        <label for="amount">Amount (in Ether):</label>
+        <input type="text" id="amount" placeholder="Enter amount">
+    </div>
+    <button id="transferButton">Transfer Ether</button>
+    <p id="status"></p>
+
+    <script>
+        // Contract ABI and Address
+        const contractABI = [
+            {
+                "inputs": [
+                    { "internalType": "address payable", "name": "_to", "type": "address" }
+                ],
+                "name": "transferEther",
+                "outputs": [],
+                "stateMutability": "payable",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "stateMutability": "payable",
+                "type": "receive"
+            },
+            {
+                "anonymous": false,
+                "inputs": [
+                    { "indexed": true, "internalType": "address", "name": "from", "type": "address" },
+                    { "indexed": true, "internalType": "address", "name": "to", "type": "address" },
+                    { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }
+                ],
+                "name": "Transfer",
+                "type": "event"
+            }
+        ];
+        const contractAddress = "0x436679bFEC28c43ABfa83E4aa34d1e4d02111807"; // Replace with deployed contract address
+
+        // Initialize Web3
+        let web3;
+        let contract;
+
+        if (window.ethereum) {
+            web3 = new Web3(window.ethereum);
+            window.ethereum.request({ method: "eth_requestAccounts" }).then(() => {
+                contract = new web3.eth.Contract(contractABI, contractAddress);
+            });
+        } else {
+            document.getElementById("status").innerText = "Please install MetaMask!";
+        }
+
+        // Transfer Ether
+        document.getElementById("transferButton").addEventListener("click", async () => {
+            const recipient = document.getElementById("recipient").value;
+            const amount = document.getElementById("amount").value;
+
+            if (!recipient || !amount) {
+                document.getElementById("status").innerText = "Please fill in all fields.";
+                return;
+            }
+
+            const accounts = await web3.eth.getAccounts();
+            const sender = accounts[0];
+
+            try {
+                await contract.methods.transferEther(recipient).send({
+                    from: sender,
+                    value: web3.utils.toWei(amount, "ether")
+                });
+                document.getElementById("status").innerText = "Transfer successful!";
+            } catch (error) {
+                console.error(error);
+                document.getElementById("status").innerText = "Transfer failed. Check the console for details.";
+            }
+        });
+    </script>
+</body>
+</html>
