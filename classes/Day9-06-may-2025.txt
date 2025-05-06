@@ -1,0 +1,68 @@
+Agenda:
+1. Creating Crypto Tokens
+Bitcoin (BTC)
+Ethereum (ETH)
+Binance Coin (BNB)
+Solana (SOL)
+Ripple (XRP)
+Dogecoin (DOGE)
+Polkadot (DOT)
+SHIBA INU (SHIB)
+2. ERC20 Standard
+https://www.investopedia.com/news/what-erc20-and-what-does-it-mean-ethereum/
+What Is ERC-20?
+ERC-20 is the technical standard for fungible tokens created using the Ethereum blockchain. A fungible token is one that is exchangeable with another token, whereas the well-known ERC-721 non-fungible tokens (NFTs) are not.
+
+Ethereum Request for Comment 20 (ERC-20) is the implemented standard for fungible tokens created using the Ethereum blockchain.
+
+creation of ERC-20 tokens using remix ide
+
+1. open remix
+2. Learn ETH
+3. click on Solidity ERC20 course
+openzeplin
+https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.4.0/contracts/token/ERC20/IERC20.sol
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.3;
+import "@openzeppelin/contracts@4.4.0/token/ERC20/ERC20.sol";
+
+contract MyToken is ERC20 {
+    constructor() ERC20("MyToken", "MTK") {
+        _mint(msg.sender, 1000000 * 10 ** decimals());
+    }
+}
+
+
+compile and deploy
+
+
+0x5B38Da6a701c568545dCfcB03FcB875f56beddC4
+0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2
+
+
+3. Public Block Chain Networks/test networks
+metamask - 
+megaeth - test network
+https://testnet.megaeth.com/
+
+
+select account to topup
+
+by clicking on facet
+in remix ide 
+select injected provider metamask
+
+deploy
+
+4. End to end application
+
+Sample projects
+
+https://archive.trufflesuite.com
+
+boxes
+
+https://archive.trufflesuite.com/boxes/tutorialtoken/
+
+https://archive.trufflesuite.com/boxes/pet-shop/
