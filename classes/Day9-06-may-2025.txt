@@ -66,3 +66,5 @@ boxes
 https://archive.trufflesuite.com/boxes/tutorialtoken/
 
 https://archive.trufflesuite.com/boxes/pet-shop/
+
+https://archive.trufflesuite.com/boxes/rsk-plant-box/
