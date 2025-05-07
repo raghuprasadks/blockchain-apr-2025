@@ -1,0 +1,26 @@
+1. NFT and its applications
+Non Fungible Token
+Non Exchangeable token
+Contracts
+DApps - Decentralized Applications
+Coins - ERC20
+nft - ERC721 
+https://opensea.io/ - market place
+for NFT
+
+
+2. Contracts for NFT
+Sample contract in Remix
+ETHLEARN
+Tutorial about NFT
+Deploy and test
+3. NFT end to end programs
+https://archive.trufflesuite.com/boxes/ERC4907%20Box/
+https://etherscan.io/
+4. Recap of 10 days session
+5. Feedback and Assessment
+
+P2P - Pear to Pear - local block chain network
+Ganache - local block chain network
+
+
