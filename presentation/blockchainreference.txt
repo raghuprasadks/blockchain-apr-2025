@@ -1,0 +1,62 @@
+https://www.dappuniversity.com/articles/blockchain-app-tutorial
+
+https://archive.trufflesuite.com/docs/ganache/quickstart/
+https://archive.trufflesuite.com/ganache/
+
+npm install -g truffle@5.0.2
+
+https://github.com/dappuniversity/eth-todo-list
+
+https://solidity-by-example.org/first-app/
+
+https://blockchaindemo.io/
+https://stackoverflow.com/questions/67204850/intermediate-value-tobignumber-is-not-a-function
+https://www.geeksforgeeks.org/setting-up-smart-contract-development-environment/
+
+infura
+Kaushalya@2017
+
+https://mainnet.infura.io/v3/3ae055aa21324a4daee8b09156995423
+
+https://www.dappuniversity.com/articles/solidity-tutorial
+
+https://solidity-by-example.org/
+
+https://www.geeksforgeeks.org/build-a-to-do-list-web-application-powered-by-blockchain/
+
+
+hardhat
+npm init -y
+npm install --save-dev hardhat
+npx hardhat init
+create a typescript project
+npx hardhat node
+npx hardhat ignition deploy .\ignition\modules\Lock.ts --network localhost
+npx hardhat console --network localhost
+const Lock = await hre.ethers.getContractFactory("Lock");
+Lock
+const lock = await Lock.attach("put the address")
+await lock.unlockTime()
+await lock.owner()
+npx hardhat test
+
+https://www.freecodecamp.org/news/getting-started-with-truffle/
+
+
+
+https://archive.trufflesuite.com/boxes/rsk-plant-box/
+
+https://archive.trufflesuite.com/guides/nft-marketplace/#my-nftsjs
+https://github.com/truffle-box/nft-marketplace-box
+
+export NODE_OPTIONS=--openssl-legacy-provider
+
+
+0x8677A7b7E02774956901347a983E9e190d61bd13
+
+https://archive.trufflesuite.com/boxes/nft-box/
+ npx truffle unbox nft-box
+
+https://www.dappuniversity.com/articles/code-your-own-cryptocurrency-on-ethereum
+
+https://www.dappuniversity.com/articles/code-your-own-cryptocurrency-on-ethereum
